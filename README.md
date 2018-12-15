@@ -1,77 +1,9 @@
-<!-- revealme
-title: Itertools
-theme: night
-transition: fade
--->
+# Stream package
 
-# Itertools for golang
+[![Build Status](https://travis-ci.org/Protoc0d/stream.svg?branch=master)](https://travis-ci.org/Protoc0d/stream)
 
-[![Build Status](https://travis-ci.org/yanatan16/itertools.png?branch=master)](http://travis-ci.org/yanatan16/itertools)
+> This package is a fork of interrools package which is a translation of the python `itertools` module. It includes all the usual suspects except for the cartesian product and permutation operators. All iterators are `chan interface{}` which allows some type ambiguity for these generic functions. It would be completely ok, however, to reproduce these functions in your package for your type-specific iterators such as `chan MyStruct`. I did this mostly as a thought exercise on converting python generators to Go.
 
-This package is a translation of the python `itertools` module. It includes all the usual suspects except for the cartesian product and permutation operators. All iterators are `chan interface{}` which allows some type ambiguity for these generic functions. It would be completely ok, however, to reproduce these functions in your package for your type-specific iterators such as `chan MyStruct`. I did this mostly as a thought exercise on converting python generators to Go.
-
-Full documentation is available on [godoc](http://godoc.org/github.com/yanatan16/itertools).
-
-# Implemented Functions
-
-## Infinite Iterator Creators
-
-- `Count(i)` - Infinite count from i
-- `Cycle(iter)` - Infinite cycling of `iter` (requires memory)
-- `Repeat(element [, n])` - Repeat element n times (or infinitely)
-
-## Finite Iterator Creators
-
-- `New(elements ...)` - Create from `interface{}` elements
-- `Int32(elements ...)` - Create from `int32` elements
-- `Int64(elements ...)` - Create from `int64` elements
-- `Uint(elements ...)` - Create from `uint` elements
-- `Uint32(elements ...)` - Create from `uint32` elements
-- `Uint64(elements ...)` - Create from `uint64` elements
-- `Float32(elements ...)` - Create from `float32` elements
-- `Float64(elements ...)` - Create from `float64` elements
-
-## Iterator Destroyers
-
-- `Reduce(iter, reducer, memo)` - Reduce (or Foldl) across the iterator.
-- `List(iter)` - Create a list from the iterator
-
-## Iterator Modifiers
-
-- `Chain(iters...)` - Chain together multiple iterators
-- `DropWhile(predicate, iter)` - Drop elements until `predicate(el) == false`
-- `TakeWhile(predicate, iter)` - Take elements until `predicate(el) == false`
-- `Filter(predicate, iter)` - Filter out elements when `predicate(el) == false`
-- `FilterFalse(predicate, iter)` - Filter out elements when `predicate(el) == true`
-- `Slice(iter, start[, stop[, step]])` - Drop elements until the start (0-based index). Stop upon stop (exclusive) unless not given. Step is 1 unless given.
-
-## More Iterator Modifiers
-
-- `Map(mapper func(interface{}) interface{}, iter)` - Map each element to `mapper(el)`
-- `MultiMap(multiMapper func(interface{}...)interface{}, iters...)` - Map all the iterators as variadic arguments to `multiMaper(elements...)`. Stop on shortest iterator.
-- `MultiMapLongest(multiMapper func(interface{}...)interface{}, iters...)` - Same as MultiMap except stop on longest iterator. Shorter iterators are filled with `nil` after they are exhausted.
-- `Starmap(multiMapper func(interface{}...)interface{}, iter)` - If iter is an iterator of `[]interface{}`, then expand it into the `multiMapper`.
-- `Zip(iters...)` - Zip multiple iterators together
-- `ZipLongest(iters...)` - Zip multiple iterators together. Take the longest. Shorter ones are appended with `nil`.
-- `Tee(iter, n)` - Split an iterator into n equal versions.
-- `Tee2(iter)` - Split an iterator into two equal versions
-
-
-## Benchmarks
-
-```
-BenchmarkFilter   200000         41188 ns/op
-BenchmarkNoFilter    5000000           640 ns/op
-BenchmarkMap       10000        108577 ns/op
-BenchmarkNoMap  10000000           321 ns/op
-BenchmarkReduce  1000000          1962 ns/op
-BenchmarkNoReduce   100000000           22.0 ns/op
-```
-
-Clearly this package is much slower than doing just the original operations. However, all large systems inevitably involve abstractions and layers of indirection which are convinient while adding overhead. A system designer should think carefully before choosing one over the other. To be clear, this package was written as a thought experiment, and while usable, might represent a pattern to be rewritten using your types in your project to save the cost of typecasting overhead.
-
-
-Thanks to [damienklinnert](/damienklinnert) for the benchmarks.
 
 # License
 
@@ -94,5 +26,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-

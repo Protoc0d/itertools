@@ -2,6 +2,11 @@
 
 # Stream
 
+# DEPRECATED
+I've migrate this repository from github to gitlab, get the lastest version of Steam package at
+https://gitlab.com/protocod/stream
+
+
 Implementation of some functional programing stuff like map, filter and reduce for Golang.
 
 [![Build Status](https://travis-ci.org/Protoc0d/stream.svg?branch=master)](https://travis-ci.org/Protoc0d/stream)
